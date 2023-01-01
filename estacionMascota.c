@@ -5,39 +5,45 @@
  *      Author: fraromesc
  */
 
-#include <stdbool.h>
+//LIBRERIAS
 #include <stdint.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <math.h>
+#include "driverlib2.h"
+#include "utils/uartstdio.h"
+#include "HAL_I2C.h"
 #include "sensorlib2.h"
 #include "estacionMascota.h"
 
 
-// BME280
-int returnRslt;
-int g_s32ActualTemp   = 0;
-unsigned int g_u32ActualPress  = 0;
-unsigned int g_u32ActualHumity = 0;
-
-// struct bme280_t bme280;
-
-// BMI160/BMM150
-int8_t returnValue;
-struct bmi160_gyro_t        s_gyroXYZ;
-struct bmi160_accel_t       s_accelXYZ;
-struct bmi160_mag_xyz_s32_t s_magcompXYZ;
-//Calibration off-sets
-int8_t accel_off_x;
-int8_t accel_off_y;
-int8_t accel_off_z;
-int16_t gyro_off_x;
-int16_t gyro_off_y;
-int16_t gyro_off_z;
-bool BME_on = true;
 
 
 
+
+//___FUNCIONES___
 //CONFIGURACION COMPLETA DEL BP y los SENSORES
-void BP(uint8_t i, int RELOJ)
+char BP(uint8_t i)
 {
+/*  VALOR  RETURN   =>  SENSORES QUE FUNCIONAN
+ *          0       =>      Ninguno
+ *          1       =>      BMI
+ *          2       =>      BME
+ *          3       =>      BME & BMI
+ *          4       =>      OPT
+ *          5       =>      OPT & BMI
+ *          6       =>      OPT & BME
+ *          7       =>      OPT & BME & BMI
+ *          8       =>      TMP
+ *          9       =>      TMP & BMI
+ *          10      =>      TMP & BME
+ *          11      =>      TMP & BME & BMI
+ *          12      =>      TMP & OPT
+ *          13      =>      TMP & OPT & BMI
+ *          14      =>      TMP & OPT & BME
+ *          15      =>      TMP & OPT & BME & BMI
+ *  Como no tenemos el TMP, el valor deseado debe ser 7.
+ */
 
     int DevID=0;
     uint8_t Sensor_OK=0;
@@ -98,8 +104,13 @@ void BP(uint8_t i, int RELOJ)
         readI2C(BMI160_I2C_ADDR2,BMI160_USER_CHIP_ID_ADDR, &DevID, 1);
         Bmi_OK=1;
     }
+    return ((Tmp_OK<<3) | (Opt_OK<<2) | (Bme_OK<<1) | Bmi_OK);
+
 }
-//SENSORES DE LUZ
+//SENSORES
+//bp especifica de que BOOSTERPACK se quiere leer el sensor
+
+//SENSOR DE LUZ
 float luz(uint8_t bp)
 {
     BP(bp);
@@ -110,7 +121,7 @@ int luz_i (uint8_t bp)
     BP(bp);
     return (int)round(OPT3001_getLux());
 }
-//SENSORES DE TEMPERATURA: flotante y entero
+//SENSOR DE TEMPERATURA: flotante y entero
 void temp007(uint8_t bp, float *Tf_amb, float *Tf_obj)
 {
     BP(bp);
@@ -122,14 +133,20 @@ void temp007_i(uint8_t bp, int16_t *T_amb, int16_t *T_obj)
 {
     BP(bp);
     float Tf_amb, Tf_obj;
-    temp007( &Tf_amb, &Tf_obj);
+    temp007( bp, &Tf_amb, &Tf_obj);
     T_amb = (short)round(Tf_amb);
     T_obj = (short)round(Tf_obj);
 }
 
 //SENSOR BME280 DE PRESION HUMEDAD y TEMPERATURA
-//bp especifica de que BOOSTERPACK se quiere leer el dato
-int temp(uint8__t bp)
+
+// BME280
+int returnRslt;
+int g_s32ActualTemp   = 0;
+unsigned int g_u32ActualPress  = 0;
+unsigned int g_u32ActualHumity = 0;
+
+int temp(uint8_t bp)
 {
     BP(bp);
     bme280_read_pressure_temperature_humidity(&g_u32ActualPress, &g_s32ActualTemp, &g_u32ActualHumity);

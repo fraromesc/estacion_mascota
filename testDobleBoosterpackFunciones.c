@@ -3,11 +3,7 @@
  * author: @fraromesc
  */
 
-//PROBLEMAS AL LEER LOS STRINGS
-/*No se porque, el micro se queda parado cuando tiene la combinación:
-            sprintf(string,"  OPT3001: %5.3f Lux   \n",lux);
-            UARTprintf(string);
-*/
+
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -29,7 +25,7 @@
 // =======================================================================
 
 
-int RELOJ;
+
 
 
 
@@ -69,7 +65,7 @@ int main(void) {
 
 
         BP1;
-        int t1 = temp();
+       // int t1 = temp();
 
     }
 
