@@ -36,13 +36,21 @@ int hum(uint8_t);                                                   //Humedad en
 
 // BMI160/BMM150
 int8_t returnValue;
-struct bmi160_gyro_t        gyro;
-struct bmi160_accel_t       accel;
-struct bmi160_mag_xyz_s32_t magcomp;
+struct bmi160_gyro_t        gyroB1;
+struct bmi160_accel_t       accelB1;
+struct bmi160_mag_xyz_s32_t magcompB1;
 
-#define actMag bmi160_bmm150_mag_compensate_xyz(&magcomp);     //Actualiza los datos del compas en variables globales
-#define actAcel bmi160_read_accel_xyz(&accel);                 //Actializa los datos del acelerómetro en variables globales
-#define actGiro bmi160_read_gyro_xyz(&gyro);                   //Actualiza los datos del giroscopio en variables globales
+#define actMagB1 bmi160_bmm150_mag_compensate_xyz(&magcompB1)      //Actualiza los datos del compas en variables globales
+#define actAcelB1 bmi160_read_accel_xyz(&accelB1)                  //Actializa los datos del acelerómetro en variables globales
+#define actGiroB1 bmi160_read_gyro_xyz(&gyroB1)                    //Actualiza los datos del giroscopio en variables globales
+
+struct bmi160_gyro_t        gyroB2;
+struct bmi160_accel_t       accelB2;
+struct bmi160_mag_xyz_s32_t magcompB2;
+
+#define actMagB2 bmi160_bmm150_mag_compensate_xyz(&magcompB2)      //Actualiza los datos del compas en variables globales
+#define actAcelB2 bmi160_read_accel_xyz(&accelB2)                  //Actializa los datos del acelerómetro en variables globales
+#define actGiroB2 bmi160_read_gyro_xyz(&gyroB2)                    //Actualiza los datos del giroscopio en variables globales
 
 
 

@@ -62,6 +62,7 @@ char BP(uint8_t i)
         DevID=OPT3001_readDeviceId();
         Opt_OK=1;
     }
+    /*
     //Configuracion TMP
     Sensor_OK=Test_I2C_Dir(TMP007_I2C_ADDRESS);
     if(!Sensor_OK)
@@ -75,7 +76,7 @@ char BP(uint8_t i)
         DevID=sensorTmp007DevID();
         sensorTmp007Enable(true);
         Tmp_OK=1;
-    }
+    }*/
     //Configuracion BME
     Sensor_OK=Test_I2C_Dir(BME280_I2C_ADDRESS2);
     if(!Sensor_OK)
@@ -162,7 +163,7 @@ int hum(uint8_t bp)
 {
     BP(bp);
     bme280_read_pressure_temperature_humidity(&g_u32ActualPress, &g_s32ActualTemp, &g_u32ActualHumity);
-    return (int)(g_u32ActualHumity/100.0);
+    return (int)(g_u32ActualHumity/1000.0);
 }
 //SENSOR BMI160/BMM150
 
