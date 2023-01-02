@@ -1,5 +1,5 @@
 /*
- * estacionMascota.h
+ * dobleBoosterpack.h
  *
  *  Created on: 31 Dec 2022
  *      Author: fraromesc
@@ -9,8 +9,8 @@
  * se necesita. Preparar define en el main para seleccionar que BP se necesita.
  */
 
-#ifndef ESTACIONMASCOTA_H_
-#define ESTACIONMASCOTA_H_
+#ifndef DOBLEBOOSTERPACK_H_
+#define DOBLEBOOSTERPACK_H_
 
 int RELOJ;                                                          //Variable global para configuración del reloj en el BP
 
@@ -49,7 +49,7 @@ struct bmi160_mag_xyz_s32_t magcomp;
 
 
 
-#endif /* ESTACIONMASCOTA_H_ */
+#endif /* DOBLEBOOSTERPACK_H_ */
 
 
 

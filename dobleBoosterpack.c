@@ -1,5 +1,5 @@
 /*
- * estacionMascota.c
+ * dobleBoosterpack.c
  *
  *  Created on: 31 Dec 2022
  *      Author: fraromesc
@@ -14,8 +14,8 @@
 #include "utils/uartstdio.h"
 #include "HAL_I2C.h"
 #include "sensorlib2.h"
-#include "estacionMascota.h"
 
+#include "dobleBoosterpack.h"
 
 
 

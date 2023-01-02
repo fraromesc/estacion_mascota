@@ -16,8 +16,7 @@
 #include "HAL_I2C.h"
 #include "sensorlib2.h"
 
-#include "estacionMascota.h"
-
+#include "dobleBoosterpack.h"
 
 
 // =======================================================================
