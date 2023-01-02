@@ -19,8 +19,6 @@
 
 
 
-
-
 //___FUNCIONES___
 //CONFIGURACION COMPLETA DEL BP y los SENSORES
 char BP(uint8_t i)
@@ -62,6 +60,7 @@ char BP(uint8_t i)
         DevID=OPT3001_readDeviceId();
         Opt_OK=1;
     }
+
     /*
     //Configuracion TMP
     Sensor_OK=Test_I2C_Dir(TMP007_I2C_ADDRESS);
@@ -108,7 +107,9 @@ char BP(uint8_t i)
     return ((Tmp_OK<<3) | (Opt_OK<<2) | (Bme_OK<<1) | Bmi_OK);
 
 }
-//SENSORES
+/*
+ * MEDIDAS SENSORES
+ */
 //bp especifica de que BOOSTERPACK se quiere leer el sensor
 
 //SENSOR DE LUZ
@@ -121,22 +122,6 @@ int luz_i (uint8_t bp)
 {
     BP(bp);
     return (int)round(OPT3001_getLux());
-}
-//SENSOR DE TEMPERATURA: flotante y entero
-void temp007(uint8_t bp, float *Tf_amb, float *Tf_obj)
-{
-    BP(bp);
-    int16_t T_amb, T_obj;
-    sensorTmp007Read(&T_amb, &T_obj);
-    sensorTmp007Convert(T_amb, T_obj, &Tf_obj, &Tf_amb);
-}
-void temp007_i(uint8_t bp, int16_t *T_amb, int16_t *T_obj)
-{
-    BP(bp);
-    float Tf_amb, Tf_obj;
-    temp007( bp, &Tf_amb, &Tf_obj);
-    T_amb = (short)round(Tf_amb);
-    T_obj = (short)round(Tf_obj);
 }
 
 //SENSOR BME280 DE PRESION HUMEDAD y TEMPERATURA
@@ -165,6 +150,24 @@ int hum(uint8_t bp)
     bme280_read_pressure_temperature_humidity(&g_u32ActualPress, &g_s32ActualTemp, &g_u32ActualHumity);
     return (int)(g_u32ActualHumity/1000.0);
 }
-//SENSOR BMI160/BMM150
+/*      SENSOR BMI160/BMM150
+ * No hay funciones para este, pq se actualizan variables globales con define en el header.
+ */
 
+//SENSOR DE TEMPERATURA: flotante y entero
+void temp007(uint8_t bp, float *Tf_amb, float *Tf_obj)
+{
+    BP(bp);
+    int16_t T_amb, T_obj;
+    sensorTmp007Read(&T_amb, &T_obj);
+    sensorTmp007Convert(T_amb, T_obj, &Tf_obj, &Tf_amb);
+}
+void temp007_i(uint8_t bp, int16_t *T_amb, int16_t *T_obj)
+{
+    BP(bp);
+    float Tf_amb, Tf_obj;
+    temp007( bp, &Tf_amb, &Tf_obj);
+    T_amb = (short)round(Tf_amb);
+    T_obj = (short)round(Tf_obj);
+}
 

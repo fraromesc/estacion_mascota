@@ -4,7 +4,7 @@
  *  Created on: 31 Dec 2022
  *      Author: fraromesc
  */
-/*^
+/*
  * En principio voy a dejar que para cada sensor tenga que especificar que BP
  * se necesita. Preparar define en el main para seleccionar que BP se necesita.
  */
@@ -35,6 +35,7 @@ int hum(uint8_t);                                                   //Humedad en
 
 
 // BMI160/BMM150
+//      BP1
 int8_t returnValue;
 struct bmi160_gyro_t        gyroB1;
 struct bmi160_accel_t       accelB1;
@@ -43,7 +44,7 @@ struct bmi160_mag_xyz_s32_t magcompB1;
 #define actMagB1 bmi160_bmm150_mag_compensate_xyz(&magcompB1)      //Actualiza los datos del compas en variables globales
 #define actAcelB1 bmi160_read_accel_xyz(&accelB1)                  //Actializa los datos del acelerómetro en variables globales
 #define actGiroB1 bmi160_read_gyro_xyz(&gyroB1)                    //Actualiza los datos del giroscopio en variables globales
-
+//      BP2
 struct bmi160_gyro_t        gyroB2;
 struct bmi160_accel_t       accelB2;
 struct bmi160_mag_xyz_s32_t magcompB2;
